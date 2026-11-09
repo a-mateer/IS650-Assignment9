@@ -3,6 +3,8 @@
 from typing import TypedDict
 
 # Custom class to define a pet
+
+
 class PetStats(TypedDict):
     name: str
     money: int
@@ -29,6 +31,7 @@ def gameStart() -> PetStats:
 
 # This function provides status updates
 def printStats(stats: PetStats) -> None:
+    print("")
     print(f"{stats['name']}'s Stats:")
     print("Hunger:", stats["hunger"])
     print("Happiness:", stats["happiness"])
@@ -47,7 +50,8 @@ def feedPet(stats: PetStats) -> PetStats:
         _clampStats(stats)
         printStats(stats)
     else:
-        print("Not enough money, go to work.")
+        print("")
+        print("WARNING! Not enough money, go to work.\n")
     return stats
 
 
@@ -94,6 +98,14 @@ if __name__ == "__main__":
         if stats["hunger"] >= 100 or stats["happiness"] <= 0 or stats["energy"] <= 0:
             print("Game over. Your pet didn't make it.")
             break
+
+        # Manual branch updates
+        if stats["hunger"] >= 80:
+            print("WARNING! Your pet is very hungry.\n")
+        if stats["happiness"] <= 20:
+            print("WARNING! Your pet needs to play or go for a walk.\n")
+        if stats["energy"] <= 20:
+            print("WARNING! Your pet needs to take a nap.\n")
 
         print("1 = Feed pet")
         print("2 = Play fetch")
