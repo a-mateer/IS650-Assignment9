@@ -17,6 +17,7 @@ def gameStart() -> PetStats:
     print("MY VIRTUAL PET")
     print("---------------------")
     name = input("What is your pet's name?\n").strip() or "Pet"
+    printPetArt()
 
     stats: PetStats = {
         "name": name,
@@ -28,6 +29,67 @@ def gameStart() -> PetStats:
 
     printStats(stats)
     return stats
+
+
+def printPetArt() -> None:
+    print(r"""
+    /\_/\
+   ( o.o )
+    > ^ <
+""")
+
+
+def printActionArt(action: str) -> None:
+    action_art = {
+        "1": r"""
+    /\_/\
+   ( o.o )
+    > ^ <
+
+        o
+ \    ooooo    /
+  \ ooooooooo /
+   \_________/
+""",
+        "2": r"""
+    /\_/\
+   ( o.o )  .-.
+    > ^ <  (   )
+            `-'
+   .-.
+  (   )
+   `-'
+""",
+        "3": r"""
+    /\_/\    $
+   ( O.O )  $ 
+    > ^ <  $   
+""",
+        "4": r"""
+    /\_/\    Z
+   ( -.- )  Z
+    > ^ <  Z
+""",
+        "5": r"""
+               /\
+              /  \
+    /\_/\    /    \
+   ( ^.^ )  /______\
+    > ^ <      ||
+""",
+    }
+    print(action_art[action])
+
+
+def printGameOverArt() -> None:
+    print(r"""
+  GGGG   A   M   M EEEEE   OOO  V   V EEEEE RRRR
+ G      A A  MM MM E      O   O V   V E     R   R
+ G GGG AAAAA M M M EEEE   O   O V   V EEEE  RRRR
+ G   G A   A M   M E      O   O  V V  E     R R
+  GGGG A   A M   M EEEEE   OOO    V   EEEEE R  RR
+""")
+
 
 # This function provides status updates
 def printStats(stats: PetStats) -> None:
@@ -97,6 +159,7 @@ if __name__ == "__main__":
         # Game continues until the limit is reached on hunger, happiness, or energy
         if stats["hunger"] >= 100 or stats["happiness"] <= 0 or stats["energy"] <= 0:
             print("Game over. Your pet didn't make it.")
+            printGameOverArt()
             break
 
         # Manual branch updates
@@ -116,18 +179,24 @@ if __name__ == "__main__":
         uInput = input("Select an action:\n").strip().lower()
 
         if uInput == "1":
+            printActionArt(uInput)
             feedPet(stats)
         elif uInput == "2":
+            printActionArt(uInput)
             playFetch(stats)
         elif uInput == "3":
+            printActionArt(uInput)
             goToWork(stats)
         elif uInput == "4":
+            printActionArt(uInput)
             goToSleep(stats)
         elif uInput == "5":
+            printActionArt(uInput)
             takeWalk(stats)
         elif uInput == "q":
             # Game ends with a quit command
             print("Thanks for playing!")
+            printGameOverArt()
             break
         else:
             # This redirects the user to provide valid input
